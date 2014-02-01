@@ -1,0 +1,15 @@
+fun member (x, []) = false
+	| member (x, y::ys) = if (x = y) then true
+  						else member(x, ys)
+
+fun remove (x, []) = []
+	| remove (x, y::ys) = if (x = y) then remove(x,ys)
+  						else y::remove(x,ys)
+
+ fun isolate [] = []
+ 	| isolate (x::xs) = x::isolate(remove(x,xs))
+
+ fun common ([], l) = []
+ 	| common (x::xs, y) = if (member(x,y)) 
+ 						then (x::common(isolate(xs), isolate(y)))
+ 						else common(isolate(xs), isolate(y))
