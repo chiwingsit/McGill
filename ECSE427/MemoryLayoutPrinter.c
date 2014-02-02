@@ -1,20 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char etext, edata, end; /* The symbols must have some type,
-									or "gcc -­-Wall" complains*/
+extern char _start, _fini;
+extern char data_start, edata, end;
+
 int main(int argc, char *argv[])
 {
-	int x;
-	label:
-	printf("First address past:\n");
-	printf("	program text (etext) 		%10p\n", &etext);
-	printf("	initialized data (edata)	%10p\n", &edata);
-	printf("	uninitialized data (end)	%10p\n", &end);
-	printf("	Address of the main func	%10p\n", main);
-	printf("	Location of variable x		%10p\n", &x);
-	printf("	Location of a label			%10p\n", &&label);
-	
+	printf("Section		Start		End		Size\n");
+	printf("text		%p	%p	%#x\n", &_start, &_fini, &_fini - &_start);
+	printf("data		%p	%p	%#x\n", &data_start, &edata, &edata-&data_start);
+	printf("bss 		%p	%p	%#x\n", &edata, &end, &end-&edata);
 	exit(EXIT_SUCCESS);
 	
 }
