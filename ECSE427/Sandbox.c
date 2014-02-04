@@ -9,8 +9,10 @@ int main(int argc, char *argv[])
 {
 	unsigned int i;
 	void* buffer = 0;
+	
 	for(i = 2900000000; 1; i = i + 1000){
 		buffer = malloc(i);
+		printf("ADDRESS: %p", buffer);
 		printf("SIZE : %u\n", i);
 		if(buffer == NULL)
 			break;
