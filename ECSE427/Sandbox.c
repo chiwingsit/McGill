@@ -8,8 +8,8 @@ extern char data_start, edata, end;
 int main(int argc, char *argv[])
 {
 	unsigned int i;
-	int *buffer = 0;
-	for(i = 0; 1; i = i + 100000){
+	void* buffer = 0;
+	for(i = 2900000000; 1; i = i + 1000){
 		buffer = malloc(i);
 		printf("SIZE : %u\n", i);
 		if(buffer == NULL)
