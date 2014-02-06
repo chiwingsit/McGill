@@ -37,10 +37,8 @@ int main(int argc, char *argv[])
 		if(ptr != (void *) -1)
 			 mms_start = ptr;
 			
-		//printf("start mms: %p\n", mms_start);
-		//printf("size mms: %u\n", size_mms);
 		munmap(ptr, size_mms);
-		size_mms +=1024*1024;
+		size_mms +=1024;
 	}
 	
 	stack_start = alloca(size_stack);
