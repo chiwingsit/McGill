@@ -18,12 +18,14 @@ fun improve(guess:real,f,tol) =
 (* In order to avoid divergence, we abort the computation if it takes more
 than 10000 steps. *)
 
-(*fun newton(f,guess:real,tol:real) =
+fun newton(f,guess:real,tol:real) =
   let
     fun helper(f,guess:real,tol:real,counter:int) =
       if (counter = 0) then raise Diverge
       else
-		
+		if(close(improve(guess,f,tol),0.0,tol)) then improve(guess,f,tol)
+		else
+			helper(f,improve(guess,f,tol),tol,counter-1)
   in
     helper(f,guess,tol,10000)
-  end*)
+  end
