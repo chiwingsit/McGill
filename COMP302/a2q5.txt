@@ -1,0 +1,22 @@
+datatype Exptree =
+	Const of int|
+	Var of string|
+	Add of Exptree * Exptree|
+	Mul of Exptree * Exptree;
+
+type Bindings = (string * int) list
+
+fun lookup(name, []) = NONE
+	|lookup(name,(x:string,y:'a)::xs) = 
+	if(name = x) then SOME y
+	else lookup(name, xs)
+	
+fun insert(name,value,[])=[(name,value)]
+	|insert(name,value,(x:string,y:'a)::xs) =
+	if(name<=x) then (name,value)::(x,y)::xs
+	else (x,y)::insert(name,value,xs)
+
+fun eval3(Const x, env:Bindings) = SOME x
+	|eval3(Var y, env:Bindings) = lookup(y,env)
+	|eval3(Add (l,r), env:Bindings) = SOME (valOf(eval3(l,env)) + valOf(eval3(r,env)))
+	|eval3(Mul (l,r), env:Bindings) = SOME (valOf(eval3(l,env)) * valOf(eval3(r,env)))
