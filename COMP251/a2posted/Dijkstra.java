@@ -53,11 +53,11 @@ public class Dijkstra {
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
 		
 		while(!pq.isEmpty()){
-			u = pq.nameOfMin();
 			distToU = pq.getMinPriority();
-			pq.removeMin();
+			u = pq.removeMin();
 			
 			setS.add(u);
+			setVminusS.remove(u);
 			
 			uAdjList = graph.getAdjList().get(u);
 			
@@ -79,7 +79,6 @@ public class Dijkstra {
 					}
 				}
 			}
-			
 		}
 
 		//  --------- END:  ADD YOUR CODE HERE  -----------------------
@@ -101,7 +100,36 @@ public class Dijkstra {
 
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
 		
+		parent.put( startingVertex, null );
 		
+		setS.add(startingVertex);
+		setVminusS.remove(startingVertex);
+
+		this.startingVertex = startingVertex;
+		
+		pqAddEdgesFrom(graph, startingVertex);
+		
+		while(!pq.isEmpty()){
+			
+
+			tmpDistToV = pq.getMinPriority();
+			e = edges.get(pq.removeMin());
+			
+			u = e.getStartVertex();
+			v = e.getEndVertex();
+			
+			if(setVminusS.contains(v)){
+				setS.add(v);
+				setVminusS.remove(v);
+				
+				parent.put(v, u);
+				dist.put(v, tmpDistToV);
+				
+				pqAddEdgesFrom(graph, v);
+			}
+			
+			
+		}
 		
 		//  --------- END:  ADD YOUR CODE HERE  -----------------------
 

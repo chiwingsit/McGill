@@ -25,8 +25,8 @@ public class TestDijkstra{
 		dijkstra.dijkstraVertices( graph, startingVertex );
 		System.out.println("dijkstraVertices: \n" + dijkstra );
 		
-		/*dijkstra = new Dijkstra();
+		dijkstra = new Dijkstra();
 		dijkstra.dijkstraEdges(    graph, startingVertex );
-		System.out.println("dijkstraEdges: \n" + dijkstra );*/
+		System.out.println("dijkstraEdges: \n" + dijkstra );
 	}
 }
