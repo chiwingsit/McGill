@@ -1,7 +1,14 @@
+/*
+ * Chi-Wing Sit
+ * 260482136
+ * 
+ */
+
 package a2posted;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Dijkstra {
 
@@ -44,6 +51,36 @@ public class Dijkstra {
 		this.startingVertex = s;
 
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
+		
+		while(!pq.isEmpty()){
+			u = pq.nameOfMin();
+			distToU = pq.getMinPriority();
+			pq.removeMin();
+			
+			setS.add(u);
+			
+			uAdjList = graph.getAdjList().get(u);
+			
+			for(String v : uAdjList.keySet()){
+				if(setVminusS.contains(v)){
+					
+					costUV = uAdjList.get(v);
+					double tmpDistToV = distToU + costUV;
+					
+					if(!pq.contains(v)){
+						pq.add(v, tmpDistToV);
+						dist.put(v, tmpDistToV);
+						parent.put(v, u);
+					}
+					else if(tmpDistToV < pq.getPriority(v)){
+						pq.changePriority(v, tmpDistToV);
+						dist.put(v, tmpDistToV);
+						parent.put(v, u);
+					}
+				}
+			}
+			
+		}
 
 		//  --------- END:  ADD YOUR CODE HERE  -----------------------
 	}
@@ -63,6 +100,8 @@ public class Dijkstra {
 		initialize(graph, startingVertex);
 
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
+		
+		
 		
 		//  --------- END:  ADD YOUR CODE HERE  -----------------------
 
