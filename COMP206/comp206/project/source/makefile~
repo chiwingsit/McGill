@@ -1,0 +1,19 @@
+coptions = -Wall -g -ggdb
+
+loginTest :	login.o cipher.o linked.o
+		gcc ${coptions} -o library login.o cipher.o linked.o
+
+login.o :	login.c cipher.h linked.h
+		gcc -c ${coptions} main.c
+
+linked.o : 	linked.c
+		gcc -c ${coptions} linked.c
+
+cipher.o :	cipher.c
+		gcc -c ${coptions} cipher.c
+
+clean :
+		rm -f login.o linked.o cipher.o
+
+backup :
+		cp cipher.c cipher.h linked.c linked.h login.c

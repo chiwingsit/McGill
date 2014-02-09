@@ -1,0 +1,10 @@
+Script started on Mon 23 Sep 2013 05:17:33 PM EDT
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206(precise32)chi-wing.sit@lab2-4:~/Comp206$ mkdir comp206 public_html
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206(precise32)chi-wing.sit@lab2-4:~/Comp206$ cd comp206
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206/comp206(precise32)chi-wing.sit@lab2-4:~/Comp206/comp206$ mkdir project
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206/comp206(precise32)chi-wing.sit@lab2-4:~/Comp206/comp206$ cd project
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206/comp206/project(precise32)chi-wing.sit@lab2-4:~/Comp206/comp206/project$ mkdir archive backup s ource data
+]0;(precise32)chi-wing.sit@lab2-4: ~/Comp206/comp206/project(precise32)chi-wing.sit@lab2-4:~/Comp206/comp206/project$ exit
+exit
+
+Script done on Mon 23 Sep 2013 05:19:00 PM EDT

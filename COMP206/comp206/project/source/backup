@@ -1,0 +1,18 @@
+#!/bin/bash
+BKDIR=../backup
+if [ $# = 0 ]
+then
+echo $#
+	for i in `ls -a`
+	do
+		if [ $i != backup ]
+		then
+			cp $i $BKDIR/$i
+		fi
+	done
+else
+	for i in $*
+	do
+		cp $i $BKDIR/$i
+	done
+fi

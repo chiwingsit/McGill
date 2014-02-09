@@ -1,0 +1,82 @@
+#!/bin/bash
+BKDIR=../backup
+if [ $# != 0 ]
+then
+	if [ $1 = "-o" ]
+		then
+		shift
+		outfile="$1"
+		shift
+		index=0
+		for i in $*
+		do
+			if [ -f $i ]
+			then
+				cfile[index]="$i"
+				index=$(( $index + 1 ))
+			fi
+		done
+		gcc -c ${cfile[*]}
+		index=0
+		for i in "${cfile[@]}"
+		do
+			ofile[index]="${i%.*}.o"
+			index=$(( $index + 1 ))
+		done
+		gcc -o $outfile ${ofile[*]}
+		for i in $*
+		do
+			if [ $i = -clean ]
+			then
+				rm *.o
+			fi
+			if [ $i = -help ]
+			then
+				echo "-o filename is a mandatory argument that indicates the name of the executable.
+If –o is present with other switches then –o has precedence and is
+executed fist before the other switches. The other switches are
+executed in their order of appearance. If -o is not present the script
+terminates with an error message and displays the -help
+information.
+-clean is optional and when present deletes all the .o files before compiling
+-backup is optional and when present copies all the .c and .h files into your
+backup directory (where ever that is, overwriting what is there
+without prompting the user). Use relative paths. Executes before compile.
+Creates the backup directory if not present.
+-archive is optional and when present TARs the contents of your source
+directory with anything and everything in it. The TAR file is then
+moved into your backup directory.
+Creates the backup directory if not present.
+-help shows how to use the bash compile."
+			fi
+			if [ $i = -backup ]
+			then
+				mkdir -p $BKDIR
+				cp *.c $BKDIR/
+				cp *.h $BKDIR/
+			fi
+			if [ $i = -archive ]
+			then
+				tar -cf $BKDIR/archive.tar ./
+			fi
+		done
+	else
+		echo "ERROR
+-o filename is a mandatory argument that indicates the name of the executable.
+If –o is present with other switches then –o has precedence and is
+executed fist before the other switches. The other switches are
+executed in their order of appearance. If -o is not present the script
+terminates with an error message and displays the -help
+information.
+-clean is optional and when present deletes all the .o files before compiling
+-backup is optional and when present copies all the .c and .h files into your
+backup directory (where ever that is, overwriting what is there
+without prompting the user). Use relative paths. Executes before compile.
+Creates the backup directory if not present.
+-archive is optional and when present TARs the contents of your source
+directory with anything and everything in it. The TAR file is then
+moved into your backup directory.
+Creates the backup directory if not present.
+-help shows how to use the bash compile."
+	fi
+fi

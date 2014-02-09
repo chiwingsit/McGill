@@ -1,0 +1,8 @@
+#!/bin/bash
+PS1="206Ass1 : "
+ls
+date
+w
+finger vrasso
+alias lsa="ls -l -a"
+firefox
