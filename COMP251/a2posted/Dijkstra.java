@@ -52,26 +52,35 @@ public class Dijkstra {
 
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
 		
-		while(!pq.isEmpty()){
+		while(!pq.isEmpty()){ // while priority queue is not empty
+			
+			// retrieve minimum distance and the name of the vertex
 			distToU = pq.getMinPriority();
-			u = pq.removeMin();
+			u = pq.removeMin(); // remove the minimum weight vertex from the queue
 			
-			setS.add(u);
-			setVminusS.remove(u);
+			setS.add(u); // add the vertex to the set S
+ 			setVminusS.remove(u); // remove the vertex from the set V\S
 			
-			uAdjList = graph.getAdjList().get(u);
+			uAdjList = graph.getAdjList().get(u); // get all vertices adjacent to u
 			
+			//////////////////////////////////////////////////////////////
+			// for every vertices v adjacent to u
+			// add or update the priority queue if v is inside
+			// the set V\S and if distToV is less than its current priority
 			for(String v : uAdjList.keySet()){
 				if(setVminusS.contains(v)){
 					
-					costUV = uAdjList.get(v);
-					double tmpDistToV = distToU + costUV;
+					costUV = uAdjList.get(v); // get the weight from u to v
+					double tmpDistToV = distToU + costUV; // tmp variable for the distance from the starting vertex to v
 					
+					// if v is not in pq, add v to the priority queue and update the dist and parent HashMaps
 					if(!pq.contains(v)){
 						pq.add(v, tmpDistToV);
 						dist.put(v, tmpDistToV);
 						parent.put(v, u);
 					}
+					// else if the distance to v is less than its current priority, update its priority
+					// with its distance from the starting vertex and update the dist and parent HashMaps
 					else if(tmpDistToV < pq.getPriority(v)){
 						pq.changePriority(v, tmpDistToV);
 						dist.put(v, tmpDistToV);
@@ -100,32 +109,27 @@ public class Dijkstra {
 
 		//  --------- BEGIN: ADD YOUR CODE HERE  -----------------------
 		
-		parent.put( startingVertex, null );
+		pqAddEdgesFrom(graph, startingVertex); // add all the edges from the starting vertex to the priority queue
 		
-		setS.add(startingVertex);
-		setVminusS.remove(startingVertex);
-
-		this.startingVertex = startingVertex;
-		
-		pqAddEdgesFrom(graph, startingVertex);
-		
-		while(!pq.isEmpty()){
+		while(!pq.isEmpty()){ // while priority queue is not empty
 			
-
-			tmpDistToV = pq.getMinPriority();
-			e = edges.get(pq.removeMin());
+			tmpDistToV = pq.getMinPriority(); // get the minimum distance from the priority queue
+			e = edges.get(pq.removeMin()); // get the corresponding edge
 			
-			u = e.getStartVertex();
-			v = e.getEndVertex();
+			u = e.getStartVertex(); // set u as the start vertex of the edge e
+			v = e.getEndVertex(); // set v as the end vertex of the edge e
 			
+			// if v is inside the set V\S then remove it from V\S and add it to the set S
+			// then update the parent and dist HashMaps and add all adjacent edge from v
+			// to the priority queue
 			if(setVminusS.contains(v)){
-				setS.add(v);
-				setVminusS.remove(v);
+				setS.add(v); // add v to s
+				setVminusS.remove(v); // remove v from V\S
 				
-				parent.put(v, u);
-				dist.put(v, tmpDistToV);
+				parent.put(v, u); // update v parent
+				dist.put(v, tmpDistToV); // update v's distance
 				
-				pqAddEdgesFrom(graph, v);
+				pqAddEdgesFrom(graph, v); // add all adjacent edges from v to the priority queue
 			}
 			
 			

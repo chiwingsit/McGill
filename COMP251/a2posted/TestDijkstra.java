@@ -7,10 +7,10 @@ public class TestDijkstra{
 		Dijkstra dijkstra;
 
 		
-		/*
-		GraphReader  reader	=	new GraphReader("src/a2solution/test_graph_1.sdot");
-		String startingVertex = "4";
-		*/
+		
+		/*GraphReader  reader	=	new GraphReader("src/a2posted/test_graph_1.sdot");
+		String startingVertex = "4";*/
+		
 
 		GraphReader  reader	=	new GraphReader("src/a2posted/test_graph_2.sdot");
 		String startingVertex = "a";
