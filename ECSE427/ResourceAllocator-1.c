@@ -57,8 +57,6 @@ void printResources(){
 	int i,j;
 	
 	// Print Hold
-	printf("\n");
-	
 	printf("HOLD:\n");
 	for( i = 0; i < num_processes; i++){
 		for( j = 0; j < num_resources; j++){
@@ -89,8 +87,13 @@ void printResources(){
 	for( j = 0; j < num_resources; j++){
 		printf("%d ", avail[j]);
 	}
-	printf("\n\n");
 	
+	printf("\n");
+	
+	if(isSafe())
+		printf("SAFE\n");
+	else
+		printf("NOT SAFE\n");
 }
 
 
@@ -107,8 +110,12 @@ void* bankerProcess(void *arg){
 		
 		// Random values for request
 		for(i = 0; i < num_resources; i++){
-			req[i] = rand() % (need[pid][i] + 1);
-			printf("Process %d is requesting %d resources%d with %d available\n", pid, req[i], i, avail[i]);
+			req[i] = rand() % need[pid][i];
+		}
+		
+		// Printing the request and need array
+		for(i = 0; i < num_resources; i++){
+			printf("%d : %d  %d\n", i, req[i], need[pid][i]);
 		}
 		
 		// Update the arrays		
@@ -120,23 +127,32 @@ void* bankerProcess(void *arg){
 		
 		// Check if safe
 		if(!isSafe()){
-			printf("State not safe, deallocating the resources\n");
-			// Update the arrays		
+			
+			printf("Not a safe state, Reallocating the resources\n");
+			
+			// Realocate the resources
 			for(i = 0; i < num_resources; i++){
 				avail[i] = avail[i] + req[i];
 				hold[pid][i] = hold[pid][i] - req[i];
 				need[pid][i] = need[pid][i] + req[i];
 			}
 			pthread_cond_wait(&isDone, &mutex);
+			
+			// Unlock mutex
 			pthread_mutex_unlock(&mutex);
 		}
 		else{
-			printf("State is safe, allocating resources\n");
+			
+			printf("Safe state\n");
+			// Increase simTime
+			simTime =+ need[pid][0];
+			// Unlock mutex
 			pthread_mutex_unlock(&mutex);
-			pthread_cond_signal(&isDone);
-			usleep(1);
 			
+			// Sleep for a randomly chosen amount of time
+			sleep(need[pid][0]);
 			
+			// Release some resources
 			pthread_mutex_lock(&mutex);
 			int release;
 			for(i = 0; i < num_resources; i++){
@@ -144,76 +160,19 @@ void* bankerProcess(void *arg){
 				avail[i] = avail[i] + release;
 				hold[pid][i] = hold[pid][i] - release;
 				need[pid][i] = need[pid][i] + release;
-				printf("Process %d is releasing %d resources%d\n", pid, release, i);
 			}
+			// Increase simTime
+			simTime =+ release;
 			pthread_mutex_unlock(&mutex);
+			
 			pthread_cond_signal(&isDone);
-			usleep(1);
+			
+			// Sleep for a randomly chosen amount of time
+			sleep(need[pid][0]);
 			
 		}
 	}
 }
-
-void* detectionProcess(void *arg){
-	int pid = (int *) arg;
-	int i;
-	
-	//Create request array
-	int req[num_resources];
-	
-	while(1){
-		// Lock mutex
-		pthread_mutex_lock(&mutex);
-		
-		// Random values for request
-		for(i = 0; i < num_resources; i++){
-			req[i] = rand() % (need[pid][i] + 1);
-			printf("Process %d is requesting %d resources%d with %d available\n", pid, req[i], i, avail[i]);
-		}
-		
-		// Update the arrays		
-		for(i = 0; i < num_resources; i++){
-			avail[i] = avail[i] - req[i];
-			hold[pid][i] = hold[pid][i] + req[i];
-			need[pid][i] = need[pid][i] - req[i];
-		}
-		
-		// Check if safe
-		if(!isSafe()){
-			printf("State not safe, deallocating the resources\n");
-			// Update the arrays		
-			for(i = 0; i < num_resources; i++){
-				avail[i] = avail[i] + req[i];
-				hold[pid][i] = hold[pid][i] - req[i];
-				need[pid][i] = need[pid][i] + req[i];
-			}
-			pthread_cond_wait(&isDone, &mutex);
-			pthread_mutex_unlock(&mutex);
-		}
-		else{
-			printf("State is safe, allocating resources\n");
-			pthread_mutex_unlock(&mutex);
-			pthread_cond_signal(&isDone);
-			usleep(1);
-			
-			
-			pthread_mutex_lock(&mutex);
-			int release;
-			for(i = 0; i < num_resources; i++){
-				release = rand() % hold[pid][i];
-				avail[i] = avail[i] + release;
-				hold[pid][i] = hold[pid][i] - release;
-				need[pid][i] = need[pid][i] + release;
-				printf("Process %d is releasing %d resources%d\n", pid, release, i);
-			}
-			pthread_mutex_unlock(&mutex);
-			pthread_cond_signal(&isDone);
-			usleep(1);
-			
-		}
-	}
-}
-
 
 int main(){
 	
@@ -250,12 +209,12 @@ int main(){
 	
 	for( i = 0; i < num_processes; i++){
 		for( j = 0; j < num_resources; j++){
-			avail[j] = 10 + rand() % 15;
-			hold[i][j] = rand() % 50;
+			avail[j] = 15 + rand() % 15;
+			hold[i][j] = rand() % 100;
 			need[i][j] = rand() % 20;
 			max[i][j] = hold[i][j] + need[i][j];
 		}
-	}
+	}	
 	
 	printResources();
 	
@@ -271,13 +230,11 @@ int main(){
 			exit(-1);
 		}
 	}
-	usleep(5000);
-	
-	printResources();
-	
+	sleep(10);
 	printf("EXIT\n");
 	exit(0);
 	pthread_exit(NULL);
 
 	return 1;
 }
+
