@@ -42,12 +42,12 @@ fun unifiable(Int, Int) = ()
 	if r = s then ()
 	else (r := SOME(TVar(s)))
 
-  | unifiable(TVar(r as ref(NONE)), s) = ((occursCheck(r,s);()
+  | unifiable(TVar(r as ref(NONE)), s) = ((occursCheck(r,s); r:=SOME(s)
 	 ) handle OccursCheck =>
 	raise Error "OccursCheck" ) (* Here you will have to handle 
     an exception that might be raised by OccursCheck. *)
 
-  | unifiable(s, TVar(r as ref(NONE))) = ((occursCheck(r,s);()
+  | unifiable(s, TVar(r as ref(NONE))) = ((occursCheck(r,s);r:=SOME(s)
 	 ) handle OccursCheck =>
 	raise Error "OccursCheck" )  (* Ditto. *)
   | unifiable(_, _) = raise Error "Constructors do not match\n"
