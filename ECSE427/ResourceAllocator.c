@@ -124,9 +124,11 @@ void* bankerProcess(void *arg){
 		
 		// Update the arrays		
 		for(i = 0; i < num_resources; i++){
+			printf("P%d requesting %d R%d\n", pid, req[i], i);
 			avail[i] = avail[i] - req[i];
 			hold[pid][i] = hold[pid][i] + req[i];
 			need[pid][i] = need[pid][i] - req[i];
+			
 		}
 		
 		// Check if safe
@@ -168,7 +170,7 @@ void* bankerProcess(void *arg){
 				avail[i] = avail[i] + release;
 				hold[pid][i] = hold[pid][i] - release;
 				need[pid][i] = need[pid][i] + release;
-				//printf("P%d is releasing %d R%d\n", pid, release, i);
+				printf("P%d released %d R%d\n", pid, release, i);
 			}
 						
 			pthread_mutex_unlock(&mutex);
@@ -262,6 +264,7 @@ void* detectionProcess(void *arg){
 			// Allocate the resources and update the arrays
 			printf("P%d : Enough resources allocating resources\n", pid);	
 			for(i = 0; i < num_resources; i++){
+				printf("P%d allocating %d R%d\n", pid, request[pid][i], i);
 				avail[i] = avail[i] - request[pid][i];
 				hold[pid][i] = hold[pid][i] + request[pid][i];
 				need[pid][i] = need[pid][i] - request[pid][i];
@@ -310,7 +313,7 @@ void* detectionProcess(void *arg){
 					avail[i] = avail[i] + release;
 					hold[pid][i] = hold[pid][i] - release;
 					need[pid][i] = need[pid][i] + release;
-					//printf("P%d released %d R%d\n", pid, release, i);
+					printf("P%d released %d R%d\n", pid, release, i);
 				}
 				pthread_mutex_unlock(&mutex);
 				pthread_cond_signal(&isDone);
@@ -385,7 +388,7 @@ int main(){
 	for( i = 0; i < num_processes; i++){
 		runTime[i] = 0;
 		for( j = 0; j < num_resources; j++){
-			avail[j] = 15 + rand() % 15;
+			avail[j] = 10 + rand() % 15;
 			hold[i][j] = rand() % 50;
 			need[i][j] = rand() % 20;
 			max[i][j] = hold[i][j] + need[i][j];
@@ -430,9 +433,10 @@ int main(){
 		pthread_cancel(processes[i]);
 	}
 	
-	printf("Simulation time - Total Run Time = %lu\n", ((simTime*1000) - totalRunTime));
-	
+
 	printResources();
+	
+	printf("\nSimulation time - Total Run Time = %lu\n", ((simTime*1000) - totalRunTime));
 	
 	printf("EXIT\n");
 	exit(0);

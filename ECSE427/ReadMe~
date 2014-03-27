@@ -1,0 +1,32 @@
+ResourceAllocator asks for the running simulation time (in ms), the number
+of processes, the number of resources, and the type of strategy you want to use.
+It will then generate a 2D matrices with random values that correspond
+to the hold, need, max, and request matrices seen in class. In my case, 
+instead of initializing the hold values to 0 resources, the system begins
+with random values. This might cause an issue with the detection algorithm if
+the initial random values put the system in an unsafe state in the beggining.
+A 1D vector is also initialize randomly to represent the available
+resources.
+The range of resources allocated can be easily change by changing the hardcoded
+values from line 385 to line 391. Finally, the matrices' values can be printed 
+with the printResources() method.
+
+Observations
+Even though both isDeadlock and isSafe are running at m * n^2 time complexity,
+some differences can be seen when running the program with different inputs.
+When the size of resources increase, the deadlock algorithm performs
+better than the avoidance one, because less deadlocks occured.
+However, if the we increase the simulation time, deadlocks are more likely
+to happen, which means that there are more chances for the detection algorithm
+to kill a process and to set its running time to 0.
+The performance of the detection algorithm compare to the avoidance algorithm is
+inversely proportional to the number of deadlocks. In general, the number of deadlocks
+increases with the number of different resources types (especially when there are only
+a few available) and the number of processes.
+
+
+When the number of resources increase, deadlock detection will perform better, due to increasing complexity.
+When the simulation duration increases, deadlock detection has more opportunities to kill more processes and zero their runtime, so deadlock avoidance would perform better.
+When the number of processes increases, deadlock detection generally perform better.
+If processes are killed and the duration is long, deadlock avoidance probably perform better, otherwise, deadlock detection generally perform better.
+When the size of a resource is very low, deadlock avoidance is not very good.
