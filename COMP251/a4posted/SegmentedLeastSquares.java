@@ -115,21 +115,24 @@ public class SegmentedLeastSquares {
 	public void computeOptIterative( ){
 								  
 		//   ADD YOUR CODE HERE
+		
+		// Base cases
 		opt[0]=costSegment;
 		opt[1]=costSegment;
+		
+		// Segmented Least Squares iterative algorithm
 		for(int j = 2; j < points.length; j++){
 			opt[j] = Double.POSITIVE_INFINITY;
 			for(int i = 1; i < j + 1; i++){
 				opt[j] = opt[j] > (opt[i-1] + e_ij[i][j] + costSegment)?
 						opt[i-1] + e_ij[i][j] + costSegment: opt[j];
+				
+				// Check if point 0 is a solution
 				if(opt[j] > costSegment + e_ij[0][j])
 					opt[j] = costSegment + e_ij[0][j];
 			}
 		}
 		
-		for(int i = 0; i < points.length; i++){
-			System.out.println(i + " : " + opt[i]);
-		}
 	}
 
 	//  This method computes the minimal cost of a least squares fit for the first j samples, 
@@ -140,22 +143,30 @@ public class SegmentedLeastSquares {
 	public double computeOptRecursive(int j){
 
 		//   ADD YOUR CODE HERE
+		
+		// if opt[j] hasn't been found yet
 		if(opt[j] == 0){
+			
+			// Base cases
 			if(j == 0)
 				opt[0] = costSegment;
 			else if(j == 1)
 				opt[1] = costSegment;
+			
+			// Segmented Least Squares recursive algorithm
 			else{
 				opt[j] = Double.POSITIVE_INFINITY;
 				for(int i = 1; i <	j + 1; i++){
 					opt[j] = opt[j] > computeOptRecursive(i-1) + e_ij[i][j] + costSegment?
 							computeOptRecursive(i-1) + e_ij[i][j] + costSegment : opt[j];
+					
+					// Check if point 0 is a solution
 					if(opt[j] > costSegment + e_ij[0][j])
 						opt[j] = costSegment + e_ij[0][j];
 				}
 			}
 		}
-		return opt[j];  //  replace this line
+		return opt[j];
 
 	}
 
@@ -164,28 +175,36 @@ public class SegmentedLeastSquares {
 	public void computeSegmentation(int j){
 
 		//   ADD YOUR CODE HERE\
-		LineSegment tempLineSegment = new LineSegment();
+		LineSegment tempLineSegment = new LineSegment(); // temporary LineSegment
 		
+		// if point 0 is a solution for opt[j], add the segment 0-j
+		// and stop the algorithm
 		if(opt[j] == costSegment + e_ij[0][j]){
+			// Initialize a LineSegment
 			tempLineSegment.i = 0;
 			tempLineSegment.j = j;
 			tempLineSegment.a = a[0][j];
 			tempLineSegment.b = b[0][j];
 			tempLineSegment.error = e_ij[0][j];
+			// Add the LineSegment to the ArrayList
 			lineSegments.add(tempLineSegment);
 		}
 		else{
+			// Check all i from i = 1 to i <= j, if it is add the segment
+			// i-j to the ArrayList and computeSegmentation(i-1)
 			for(int i = 1; i < j + 1; i++){
 				if(opt[j] == opt[i - 1] + e_ij[i][j] + costSegment){
-					computeSegmentation(i-1);
-					
+					// Initialize a LineSegment
 					tempLineSegment.i = i;
 					tempLineSegment.j = j;
 					tempLineSegment.a = a[i][j];
 					tempLineSegment.b = b[i][j];
 					tempLineSegment.error = e_ij[i][j];
+					// Add the LineSegment to the ArrayList
 					lineSegments.add(tempLineSegment);
 					
+					// Call computeSegmentation recursively
+					computeSegmentation(i-1);
 					break;
 				}
 			}
