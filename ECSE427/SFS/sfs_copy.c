@@ -5,7 +5,7 @@
 #include "disk_emu.h"
 
 #define MAX_FNAME_LENGTH 16
-#define MAX_FD 100 
+#define MAX_FD 125
 #define MAX_BYTES 30000 /* Maximum file size I'll try to create */
 #define MIN_BYTES 10000         /* Minimum file size */
 #define MAX_BLOCK 1000
@@ -17,27 +17,24 @@ typedef struct{
 	int freeBlocks;
 }super_block;
 
-/*Structure to represent an entry in the directory table. Each time a file is 
-created, an instance of this structure will be created.*/
+// Represent an entry in the directory
 typedef struct{
 	char fileName[MAX_FNAME_LENGTH];
 	int size;
-	int fatIndex; //Data block location of the given file.
+	int fatIndex;
 }dir_entry;
 
-/*Structure to represent an entry in the file descriptor table. Each time a file
-is opened, an instance of this structure will be created.*/
+// Represent an entry in the file descriptor table
 typedef struct{
 	int fatIndex;
 	int writeIndex;
 	int readIndex;
 }fdt_entry;
 
-/*Structure to represent an entry in the file access table. Each file will have
-at least on entry in the file access table.*/
+// Represent an entry in file access table
 typedef struct{
 	int dbIndex;
-	int next; //Next data block entry for a given file. Multiple data block entries are used to represent a file.
+	int next; //Next fat index
 }fat_entry;
 
 super_block superBlock;
@@ -52,8 +49,8 @@ int mksfs(int fresh){
 	blockSize = (sizeof(fdt) > sizeof(fat) ? sizeof(fdt) : sizeof(fat));
 	int i;
 	if(fresh){
-		//initialise a new FS called TestFS.
-		init_fresh_disk("root", blockSize, MAX_BLOCK);
+		//initialise a new FS called FileSystem.
+		init_fresh_disk("FileSystem", blockSize, MAX_BLOCK);
 		for(i = 0; i < MAX_FD; i++){
 			strcpy(root[i].fileName, "");
 			root[i].size = 0;
@@ -85,7 +82,7 @@ int mksfs(int fresh){
 		write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 	}
 	else{
-		init_disk("root", blockSize, MAX_BLOCK);
+		init_disk("FileSystem", blockSize, MAX_BLOCK);
 		
 		read_blocks(0, 1, (void *) &superBlock);
 		read_blocks(1, 1, (void *) &root);
@@ -108,7 +105,7 @@ int nextFreeBlock(){
 
 int nextFreeRoot(){
 	int i;
-	for(i = 0; i < MAX_FD; i++){
+	for(i = 0; i < MAX_FD - 1; i++){
 		if(root[i].fatIndex == -1)
 			return i;
 	}
@@ -135,7 +132,7 @@ void sfs_ls(void){
 	printf("\n");
 }
 
-int sfs_fcreate(char *name){
+/*int sfs_fcreate(char *name){
 	int dirIndex = nextFreeRoot();
 	int fatIndex = nextFreeFat();
 	int dbIndex = nextFreeBlock();
@@ -154,9 +151,37 @@ int sfs_fcreate(char *name){
 	write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 	
 	return dirIndex;
+}*/
+
+int sfs_fcreate(char *name){
+	int dirIndex = nextFreeRoot();
+	if(dirIndex == -1) return -1;
+	int fatIndex = nextFreeFat();
+	if(fatIndex == -1) return -1;
+	int dbIndex = nextFreeBlock();
+	if(dbIndex == -1) return -1;
+	
+	strcpy(root[dirIndex].fileName, name);
+	root[dirIndex].size = 0;
+	root[dirIndex].fatIndex = fatIndex;
+	
+	fat[fatIndex].dbIndex = -1;
+	fat[fatIndex].next = -1;
+	
+	freeBlocks[dbIndex] = 1;
+	
+	fdt[dirIndex].fatIndex = fatIndex;
+	fdt[dirIndex].writeIndex = 0;
+	fdt[dirIndex].readIndex = 0;
+	
+	write_blocks(1, 1, (void *) &root);
+	write_blocks(2, 1, (void *) &fat);
+	write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
+	
+	return dirIndex;
 }
 
-int sfs_fopen(char *name){
+/*int sfs_fopen(char *name){
 	int i;
 	
 	// Check if file exists
@@ -177,20 +202,106 @@ int sfs_fopen(char *name){
 	fdt[i].writeIndex = root[i].size;
 	fdt[i].readIndex = 0;
 	return i;
-}
+}*/
 
 int sfs_fclose(int fileID){
 	if(fdt[fileID].fatIndex == -1)
-		return 0;
+		return 1;
 	else{
 		fdt[fileID].fatIndex = -1;
 		fdt[fileID].readIndex = 0;
 		fdt[fileID].writeIndex = 0;
-		return 1;
+		return 0;
 	}	
 }
 
+int sfs_fopen(char *name){
+	int i;
+	
+	// Check if file exists
+	for(i = 0; i < MAX_FD; i++){
+		if(strcmp(root[i].fileName, name) == 0){
+			// Update file descriptor table
+			fdt[i].fatIndex = root[i].fatIndex;
+			fdt[i].writeIndex = root[i].size;
+			fdt[i].readIndex = 0;
+			return i;
+		}
+	}
+	// Didn't find the file in root so create new file
+	return sfs_fcreate(name);
+}
+
 int sfs_fwrite(int fileID, char *buf, int length){
+	if(fdt[fileID].fatIndex == -1) return 0;
+	
+	int tempLength = length;
+	int fatIndex = fdt[fileID].fatIndex;
+	
+	char temp_buffer[blockSize];
+	int offset = fdt[fileID].writeIndex;
+	
+	while(offset > blockSize){
+		fatIndex = fat[fatIndex].next;
+		offset = offset - blockSize;
+		
+		if(fatIndex == -1) return 0;
+	}
+	int blockIndex = fat[fatIndex].dbIndex;
+	
+	// block index exist
+	if(blockIndex != -1){
+	
+		if(length > (blockSize - offset)){
+			read_blocks(blockIndex, 1, (void *) temp_buffer);
+			memcpy(temp_buffer + offset, buf, blockSize - offset);
+			write_blocks(blockIndex, 1, (void *) temp_buffer);
+			length = length - blockSize + offset;
+			buf = buf + blockSize - offset;
+		}
+		else{
+			read_blocks(blockIndex, 1, (void *) temp_buffer);
+			memcpy(temp_buffer + offset, buf, length);
+			write_blocks(blockIndex, 1, (void *) temp_buffer);
+			length = 0;
+			buf = buf + length;
+		}
+	}
+	while(length > 0){
+		int partSize = length > blockSize ? blockSize:length;
+		memcpy(temp_buffer, buf, partSize);
+		
+		blockIndex = nextFreeBlock();
+		if(blockIndex == -1) return 0;
+		
+		if(fat[fatIndex].dbIndex != -1){
+			int nextFatIndex = nextFreeFat();
+			if(nextFatIndex == -1) return 0;
+			
+			fat[fatIndex].next = nextFatIndex;
+			fatIndex = nextFatIndex;
+		}
+		
+		freeBlocks[blockIndex] = 1;
+		fat[fatIndex].dbIndex = blockIndex;
+		fat[fatIndex].next = -1;
+		
+		write_blocks(blockIndex, 1, (void *) temp_buffer);
+		length = length - partSize;
+		buf = buf + partSize;
+	}
+	
+	root[fileID].size = root[fileID].size + tempLength;
+	fdt[fileID].writeIndex = root[fileID].size;
+	
+	write_blocks(1, 1, (void *) &root);
+	write_blocks(2, 1, (void *) &fat);
+	write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
+	
+	return tempLength;
+}
+
+/*int sfs_fwrite(int fileID, char *buf, int length){
 	if(fdt[fileID].fatIndex != -1){
 		int fatIndex = fdt[fileID].fatIndex;
 		int blockIndex;
@@ -236,17 +347,21 @@ int sfs_fwrite(int fileID, char *buf, int length){
 		return 1;
 	}
 	return 0;
-}
+}*/
 
 int sfs_fread(int fileID, char *buf, int length){
 	if(fdt[fileID].fatIndex != -1){
 		int blockIndex;
+		int tempLength = length;
 		int fatIndex = fdt[fileID].fatIndex;
 		int offset = fdt[fileID].readIndex;
 		char *buffer = buf;
 		char *temp = (char*) malloc(blockSize * sizeof(char));
 		
-		fdt[fileID].readIndex = fdt[fileID].readIndex + length;
+		int byteRead = tempLength > root[fileID].size - fdt[fileID].readIndex ?
+		root[fileID].size - fdt[fileID].readIndex : tempLength;
+		
+		fdt[fileID].readIndex = fdt[fileID].readIndex + byteRead;
 		
 		while(offset > blockSize){
 			fatIndex = fat[fatIndex].next;
@@ -265,7 +380,7 @@ int sfs_fread(int fileID, char *buf, int length){
 		}
 		else{
 			memcpy(buffer, temp + offset, length);
-			return 1;
+			return byteRead;
 		}
 		while(length > blockSize){
 			temp = (char *)malloc(blockSize * sizeof(char));
@@ -280,8 +395,13 @@ int sfs_fread(int fileID, char *buf, int length){
 			read_blocks(blockIndex, 1, temp);
 			memcpy(buffer, temp, length);
 			free(temp);
+			buffer = buffer + length;
+			length = 0;
 		}
-		return 1;
+		
+		//int byteRead = tempLength > root[fileID].size - fdt[fileID].readIndex ?
+		//root[fileID].size - fdt[fileID].readIndex : tempLength;
+		return byteRead;
 	}
 	return 0;
 }
