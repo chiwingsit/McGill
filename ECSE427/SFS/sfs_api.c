@@ -44,9 +44,20 @@ int freeBlocks[MAX_BLOCK];
 
 int blockSize;
 
+void updateFreeBlockUsage(){
+	superBlock.dataBlocks = 0;
+	int i;
+	for(i = 0; i < MAX_BLOCK; i++){
+		if(freeBlocks[i] == 0)
+			superBlock.dataBlocks++;
+	}
+	
+	superBlock.freeBlocks = MAX_BLOCK - superBlock.dataBlocks;
+}
+
 int mksfs(int fresh){
-	blockSize = (sizeof(fdt) > sizeof(fat) ? sizeof(fdt) : sizeof(fat));
-	printf("\n\n\n\n %d !!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n", blockSize);
+	// Set the block size so that both fat and root can fit in one block
+	blockSize = (sizeof(root) > sizeof(fat) ? sizeof(root) : sizeof(fat));
 	
 	int i;
 	if(fresh){
@@ -74,19 +85,18 @@ int mksfs(int fresh){
 		// Values for the super block
 		superBlock.rootBlocks = 1;
 		superBlock.fatBlocks = 1;
-		superBlock.dataBlocks = 0;
-		superBlock.freeBlocks = 1000;
+		
+		// Update the disk memory
+		updateFreeBlockUsage();
+		write_blocks(0, 1, (void *) &superBlock);
+		write_blocks(1, 1, (void *) &root);
+		write_blocks(1 + superBlock.rootBlocks, 1, (void *) &fat);
+		write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 		
 		freeBlocks[0] = 1;
 		freeBlocks[1] = 1;
 		freeBlocks[2] = 1;
 		freeBlocks[MAX_BLOCK - 1] = 1;
-		
-		// Update the disk memory
-		write_blocks(0, 1, (void *) &superBlock);
-		write_blocks(1, 1, (void *) &root);
-		write_blocks(2, 1, (void *) &fat);
-		write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 	}
 	else{
 		// Else get the data from the previous file system
@@ -165,8 +175,10 @@ int sfs_fcreate(char *name){
 	fdt[dirIndex].readIndex = 0;
 	
 	// Update the disk memory
+	updateFreeBlockUsage();
+	write_blocks(0, 1, (void *) &superBlock);
 	write_blocks(1, 1, (void *) &root);
-	write_blocks(2, 1, (void *) &fat);
+	write_blocks(1 + superBlock.rootBlocks, 1, (void *) &fat);
 	write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 	
 	return dirIndex;
@@ -270,8 +282,10 @@ int sfs_fwrite(int fileID, char *buf, int length){
 		fdt[fileID].writeIndex = root[fileID].size;
 		
 		// Update the disk memory
+		updateFreeBlockUsage();
+		write_blocks(0, 1, (void *) &superBlock);
 		write_blocks(1, 1, (void *) &root);
-		write_blocks(2, 1, (void *) &fat);
+		write_blocks(1 + superBlock.rootBlocks, 1, (void *) &fat);
 		write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 		
 		return tempLength;
@@ -376,8 +390,10 @@ int sfs_remove(char *file){
 			fdt[i].writeIndex = 0;
 
 			// Update the disk memory
+			updateFreeBlockUsage();
+			write_blocks(0, 1, (void *) &superBlock);
 			write_blocks(1, 1, (void *) &root);
-			write_blocks(2, 1, (void *) &fat);
+			write_blocks(1 + superBlock.rootBlocks, 1, (void *) &fat);
 			write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
 			
 			return 0;

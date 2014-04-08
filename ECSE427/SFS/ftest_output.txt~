@@ -1,0 +1,283 @@
+Two files created with zero length:
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                    0 B
+IMZERBRN.BKQ                    0 B
+
+
+file: 0, chunksize: 7800
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                    0 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 4837
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                 7800 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 54
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                12637 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 250
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                12691 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 11
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                12941 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 37
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                12952 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 206
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                12989 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 135
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13195 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 2
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13330 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 4
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13332 B
+IMZERBRN.BKQ                    0 B
+
+file: 0, chunksize: 10
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13336 B
+IMZERBRN.BKQ                    0 B
+
+file: 1, chunksize: 1425
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                    0 B
+
+file: 1, chunksize: 6109
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                 1425 B
+
+file: 1, chunksize: 10890
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                 7534 B
+
+file: 1, chunksize: 572
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                18424 B
+
+file: 1, chunksize: 397
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                18996 B
+
+file: 1, chunksize: 1
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                19393 B
+
+file: 1, chunksize: 4
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                19394 B
+
+file: 1, chunksize: 10
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                19398 B
+
+file: 1, chunksize: 4
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                19408 B
+
+File RBNDOBKD.IWI now has length 13346 and IMZERBRN.BKQ now has length 19412:
+File Name                 Size
+==========================================
+RBNDOBKD.IWI                13346 B
+IMZERBRN.BKQ                19412 B
+
+before doing reads
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 0
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+before sfs_read
+
+After sfs_read
+
+After doing reads 1
+
+After doing reads
+
+After deleting file RBNDOBKD.IWI:
+File Name                 Size
+==========================================
+IMZERBRN.BKQ                19412 B
+
+After deleting file IMZERBRN.BKQ:
+File Name                 Size
+==========================================
+
+Created 100 files in the root directory
+Simultaneously opened 100 files
+Tests sfs_fseek
+Test program exiting with 0 errors
+

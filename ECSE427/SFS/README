@@ -1,0 +1,10 @@
+Chi-Wing Sit
+260482136
+
+The block size is set so that both the root and the fat can fit in one block, so the superblock values
+for the number of blocks used for the root and the fat will always be one.
+
+To compile and run:
+make
+./sfs_ftest
+./sfs_htest
