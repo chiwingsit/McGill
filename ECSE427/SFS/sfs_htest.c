@@ -287,7 +287,7 @@ main(int argc, char **argv)
     if (fds[i] >= 0) {
       readsize = sfs_fread(fds[i], fixedbuf, sizeof(fixedbuf));
       if (readsize != strlen(test_str)) {
-        fprintf(stderr, "ERROR: Read wrong number of bytes %d %d\n", readsize,strlen(test_str));
+        fprintf(stderr, "ERROR: Read wrong number of bytes\n");
         error_count++;
       }
 

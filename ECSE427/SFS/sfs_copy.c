@@ -8,7 +8,7 @@
 #define MAX_FD 125
 #define MAX_BYTES 30000 /* Maximum file size I'll try to create */
 #define MIN_BYTES 10000         /* Minimum file size */
-#define MAX_BLOCK 1000
+#define MAX_BLOCK 1001
 
 typedef struct{
 	int rootBlocks;
@@ -132,27 +132,6 @@ void sfs_ls(void){
 	printf("\n");
 }
 
-/*int sfs_fcreate(char *name){
-	int dirIndex = nextFreeRoot();
-	int fatIndex = nextFreeFat();
-	int dbIndex = nextFreeBlock();
-	
-	strcpy(root[dirIndex].fileName, name);
-	root[dirIndex].size = 0;
-	root[dirIndex].fatIndex = fatIndex;
-	
-	fat[fatIndex].dbIndex = dbIndex;
-	fat[fatIndex].next = -1;
-	
-	freeBlocks[dbIndex] = 1;
-	
-	write_blocks(1, 1, (void *) &root);
-	write_blocks(2, 1, (void *) &fat);
-	write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
-	
-	return dirIndex;
-}*/
-
 int sfs_fcreate(char *name){
 	int dirIndex = nextFreeRoot();
 	if(dirIndex == -1) return -1;
@@ -168,7 +147,7 @@ int sfs_fcreate(char *name){
 	fat[fatIndex].dbIndex = -1;
 	fat[fatIndex].next = -1;
 	
-	freeBlocks[dbIndex] = 1;
+	//freeBlocks[dbIndex] = 1;
 	
 	fdt[dirIndex].fatIndex = fatIndex;
 	fdt[dirIndex].writeIndex = 0;
@@ -180,29 +159,6 @@ int sfs_fcreate(char *name){
 	
 	return dirIndex;
 }
-
-/*int sfs_fopen(char *name){
-	int i;
-	
-	// Check if file exists
-	for(i = 0; i < MAX_FD; i++){
-		if(strcmp(root[i].fileName, name) == 0){
-			// Update file descriptor table
-			fdt[i].fatIndex = root[i].fatIndex;
-			fdt[i].writeIndex = root[i].size;
-			fdt[i].readIndex = 0;
-			return i;
-		}
-	}
-	// Didn't find the file in root so create new file
-	i = sfs_fcreate(name);
-	
-	// Update file descriptor table
-	fdt[i].fatIndex = root[i].fatIndex;
-	fdt[i].writeIndex = root[i].size;
-	fdt[i].readIndex = 0;
-	return i;
-}*/
 
 int sfs_fclose(int fileID){
 	if(fdt[fileID].fatIndex == -1)
@@ -301,54 +257,6 @@ int sfs_fwrite(int fileID, char *buf, int length){
 	return tempLength;
 }
 
-/*int sfs_fwrite(int fileID, char *buf, int length){
-	if(fdt[fileID].fatIndex != -1){
-		int fatIndex = fdt[fileID].fatIndex;
-		int blockIndex;
-		int offset = fdt[fileID].writeIndex;
-		root[fileID].size = root[fileID].size + length;
-		
-		// Point to the end of the file
-		while(offset > blockSize){
-			fatIndex = fat[fatIndex].next;
-			offset = offset - blockSize;
-		}
-		
-		blockIndex = fat[fatIndex].dbIndex;
-		//offset = fdt[fileID].writeIndex % blockSize;
-		
-		char temp[blockSize];
-		read_blocks(blockIndex, 1, temp);
-		memcpy(temp + offset, buf, blockSize - offset);
-		write_blocks(blockIndex, 1, (void *) temp);
-		buf = buf + blockSize - offset;
-		length = length - blockSize + offset;
-		
-		while(length > 0){
-			blockIndex = nextFreeBlock();
-			freeBlocks[blockIndex] = 1;
-			fat[fatIndex].next = nextFreeFat();
-			fatIndex = fat[fatIndex].next;
-			fat[fatIndex].dbIndex = blockIndex;
-			fat[fatIndex].next = -1;
-			
-			memcpy(temp, buf, blockSize);
-			length = length - blockSize;
-			buf = buf + blockSize;
-			write_blocks(blockIndex, 1, (void *) temp);
-		}
-		
-		fdt[fileID].writeIndex = root[fileID].size;
-		
-		write_blocks(1, 1, (void *) &root);
-		write_blocks(2, 1, (void *) &fat);
-		write_blocks(MAX_BLOCK - 1, 1, (void *) &freeBlocks);
-		
-		return 1;
-	}
-	return 0;
-}*/
-
 int sfs_fread(int fileID, char *buf, int length){
 	if(fdt[fileID].fatIndex != -1){
 		int blockIndex;
@@ -356,10 +264,12 @@ int sfs_fread(int fileID, char *buf, int length){
 		int fatIndex = fdt[fileID].fatIndex;
 		int offset = fdt[fileID].readIndex;
 		char *buffer = buf;
-		char *temp = (char*) malloc(blockSize * sizeof(char));
 		
+		char temp[blockSize];
 		int byteRead = tempLength > root[fileID].size - fdt[fileID].readIndex ?
 		root[fileID].size - fdt[fileID].readIndex : tempLength;
+		
+		length = byteRead;
 		
 		fdt[fileID].readIndex = fdt[fileID].readIndex + byteRead;
 		
@@ -383,7 +293,6 @@ int sfs_fread(int fileID, char *buf, int length){
 			return byteRead;
 		}
 		while(length > blockSize){
-			temp = (char *)malloc(blockSize * sizeof(char));
 			read_blocks(blockIndex, 1, temp); 
 			memcpy(buffer, temp, blockSize);
 			buffer = buffer + blockSize;
@@ -394,17 +303,66 @@ int sfs_fread(int fileID, char *buf, int length){
 		if(length > 0){
 			read_blocks(blockIndex, 1, temp);
 			memcpy(buffer, temp, length);
-			free(temp);
 			buffer = buffer + length;
 			length = 0;
 		}
 		
-		//int byteRead = tempLength > root[fileID].size - fdt[fileID].readIndex ?
-		//root[fileID].size - fdt[fileID].readIndex : tempLength;
 		return byteRead;
 	}
 	return 0;
 }
+
+/*int sfs_fread(int fileID, char * buf, int length)
+{
+	if(fdt[fileID].fatIndex == -1) return 0;
+	
+	char * buffer = buf;
+	char temp[blockSize];
+	
+	int length_cache = length;
+	int fat_index = fdt[fileID].fatIndex;
+	
+	int skip = fdt[fileID].readIndex;
+	while(skip > blockSize){
+		fat_index = fat[fat_index].next;
+		skip -= blockSize;
+		if(fat_index == -1) return 0;
+	}
+	int db_index = fat[fat_index].dbIndex;
+	int first_part = (length > blockSize - skip) ? blockSize - skip: length;
+	
+	read_blocks(db_index, 1, temp);
+	memcpy(buffer, temp + skip, first_part);
+	length -= first_part;
+	buffer += first_part;
+	
+	fat_index = fat[fat_index].next;
+	
+	while(fat[fat_index].next!=-1 && length > 0 && length > blockSize)
+	{
+		db_index = fat[fat_index].dbIndex;
+		read_blocks(db_index,1,temp);
+		memcpy(buffer,temp,blockSize);
+		length -= blockSize;
+		buffer += blockSize;
+		fat_index = fat[fat_index].next;
+	}
+	
+	//read last block if there is still content
+	if(length>0)
+	{
+		db_index = fat[fat_index].dbIndex;
+		if(db_index > 0)
+		{
+			read_blocks(db_index,1,temp);
+			memcpy(buffer,temp,length);
+		}
+	}
+	
+	//update rd_ptr
+	fdt[fileID].readIndex += length_cache;
+	return length_cache;
+}*/
 
 int sfs_fseek(int fileID, int offset){
 	if(fdt[fileID].fatIndex != -1){
@@ -449,32 +407,4 @@ int sfs_remove(char *file){
 	}
 	
 	return 1;
-}
-
-int a(){
-	printf("\n");
-	printf("Creating disk\n");
-	mksfs(1);
-	printf("Opening TEST1.txt\n");
-	int test1ID = sfs_fopen("TEST1.txt");
-	//printf("Opening TEST1.txt\n");
-	//sfs_fopen("TEST1.txt");
-	
-	printf("Opening TEST2.txt\n");
-	sfs_fopen("TEST2.txt");
-	
-	printf("List of files\n");
-	sfs_ls();
-	
-	printf("Write to file Test1\n");
-	sfs_fwrite(test1ID, "Hello World 1", 12971);
-	sfs_ls();
-	printf("Write to file Test1\n");
-	sfs_fwrite(test1ID, "Hello World 2", 13);
-	sfs_ls();
-	
-	char *buffer = (char *)malloc(50 * sizeof(char));
-	sfs_fread(test1ID, buffer, 50);
-	printf("%s\n", buffer);
-	return 0;
 }
