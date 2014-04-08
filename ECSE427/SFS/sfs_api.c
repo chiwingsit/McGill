@@ -6,7 +6,7 @@
 
 #define MAX_FNAME_LENGTH 13
 #define MAX_FD 125
-#define MAX_BLOCK 1001
+#define MAX_BLOCK 1000
 
 // Superblock struct
 typedef struct{
@@ -46,6 +46,8 @@ int blockSize;
 
 int mksfs(int fresh){
 	blockSize = (sizeof(fdt) > sizeof(fat) ? sizeof(fdt) : sizeof(fat));
+	printf("\n\n\n\n %d !!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n", blockSize);
+	
 	int i;
 	if(fresh){
 		// Initialise a new FS called FileSystem.
@@ -200,43 +202,49 @@ int sfs_fopen(char *name){
 }
 
 int sfs_fwrite(int fileID, char *buf, int length){
+	// if file does exist
 	if(fdt[fileID].fatIndex != -1){
 	
 		int tempLength = length;
 		int fatIndex = fdt[fileID].fatIndex;
 		
-		char temp_buffer[blockSize];
+		char buffer[blockSize];
 		int offset = fdt[fileID].writeIndex;
 		
+		// Find the last fat index for this write index
 		while(offset > blockSize){
 			fatIndex = fat[fatIndex].next;
 			offset = offset - blockSize;
 			
 			if(fatIndex == -1) return 0;
 		}
+		// Get the block index corresponding to the specific fat index
 		int blockIndex = fat[fatIndex].dbIndex;
 		
 		// Block index already exists
 		if(blockIndex != -1){
-		
+			// if write takes more memory than the current block has available
 			if(length > (blockSize - offset)){
-				read_blocks(blockIndex, 1, (void *) temp_buffer);
-				memcpy(temp_buffer + offset, buf, blockSize - offset);
-				write_blocks(blockIndex, 1, (void *) temp_buffer);
+				read_blocks(blockIndex, 1, (void *) buffer);
+				memcpy(buffer + offset, buf, blockSize - offset);
+				write_blocks(blockIndex, 1, (void *) buffer);
 				length = length - blockSize + offset;
 				buf = buf + blockSize - offset;
 			}
 			else{
-				read_blocks(blockIndex, 1, (void *) temp_buffer);
-				memcpy(temp_buffer + offset, buf, length);
-				write_blocks(blockIndex, 1, (void *) temp_buffer);
+				read_blocks(blockIndex, 1, (void *) buffer);
+				memcpy(buffer + offset, buf, length);
+				write_blocks(blockIndex, 1, (void *) buffer);
 				length = 0;
 				buf = buf + length;
 			}
 		}
+		// While length is greater than zero, check if the amount of write is
+		// is less than the block size and write the data in the next free block
+		// Then updates the fat table and the length
 		while(length > 0){
 			int partSize = length > blockSize ? blockSize:length;
-			memcpy(temp_buffer, buf, partSize);
+			memcpy(buffer, buf, partSize);
 			
 			blockIndex = nextFreeBlock();
 			if(blockIndex == -1) return 0;
@@ -253,11 +261,11 @@ int sfs_fwrite(int fileID, char *buf, int length){
 			fat[fatIndex].dbIndex = blockIndex;
 			fat[fatIndex].next = -1;
 			
-			write_blocks(blockIndex, 1, (void *) temp_buffer);
+			write_blocks(blockIndex, 1, (void *) buffer);
 			length = length - partSize;
 			buf = buf + partSize;
 		}
-		
+		// Update the size of the file and the fdt write pointer
 		root[fileID].size = root[fileID].size + tempLength;
 		fdt[fileID].writeIndex = root[fileID].size;
 		
@@ -275,14 +283,14 @@ int sfs_fwrite(int fileID, char *buf, int length){
 int sfs_fread(int fileID, char *buf, int length){
 	if(fdt[fileID].fatIndex != -1){
 		int blockIndex;
-		int tempLength = length;
 		int fatIndex = fdt[fileID].fatIndex;
 		int offset = fdt[fileID].readIndex;
 		char *buffer = buf;
 		
 		char temp[blockSize];
-		int byteRead = tempLength > root[fileID].size - fdt[fileID].readIndex ?
-		root[fileID].size - fdt[fileID].readIndex : tempLength;
+		// Set the number of bytes read
+		int byteRead = length > root[fileID].size - fdt[fileID].readIndex ?
+		root[fileID].size - fdt[fileID].readIndex : length;
 		
 		length = byteRead;
 		
@@ -307,6 +315,7 @@ int sfs_fread(int fileID, char *buf, int length){
 			memcpy(buffer, temp + offset, length);
 			return byteRead;
 		}
+		// Read the rest of the blocks
 		while(length > blockSize){
 			read_blocks(blockIndex, 1, temp); 
 			memcpy(buffer, temp, blockSize);
@@ -315,6 +324,7 @@ int sfs_fread(int fileID, char *buf, int length){
 			fatIndex = fat[fatIndex].next;
 			blockIndex = fat[fatIndex].dbIndex;
 		}
+		// Read the last block
 		if(length > 0){
 			read_blocks(blockIndex, 1, temp);
 			memcpy(buffer, temp, length);
