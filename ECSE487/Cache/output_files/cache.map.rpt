@@ -1,0 +1,1251 @@
+Analysis & Synthesis report for cache
+Mon Jan 26 12:55:30 2015
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. User-Specified and Inferred Latches
+ 10. General Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Source assignments for altsyncram:ram_block[0][150]__1|altsyncram_4e81:auto_generated
+ 13. Parameter Settings for User Entity Instance: Top-level Entity: |cache
+ 14. Parameter Settings for User Entity Instance: altsyncram:ram_block[0][150]__1
+ 15. altsyncram Parameter Settings by Entity Instance
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon Jan 26 12:55:30 2015       ;
+; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Full Version ;
+; Revision Name                      ; cache                                       ;
+; Top-level Entity Name              ; cache                                       ;
+; Family                             ; Cyclone III                                 ;
+; Total logic elements               ; 930                                         ;
+;     Total combinational functions  ; 780                                         ;
+;     Dedicated logic registers      ; 155                                         ;
+; Total registers                    ; 155                                         ;
+; Total pins                         ; 182                                         ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 38,656                                      ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Top-level entity name                                                      ; cache              ; cache              ;
+; Family name                                                                ; Cyclone III        ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ; < 0.1%      ;
+;     Processors 5-8         ;   0.0%      ;
++----------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                             ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                         ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+; 2bits_counter.vhd                ; yes             ; User VHDL File               ; F:/altera/Cache/2bits_counter.vhd                                    ;         ;
+; cache.vhd                        ; yes             ; User VHDL File               ; F:/altera/Cache/cache.vhd                                            ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
+; aglobal130.inc                   ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/aglobal130.inc        ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/altrom.inc            ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/altram.inc            ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; c:/altera/13.0/quartus/libraries/megafunctions/altdpram.inc          ;         ;
+; db/altsyncram_4e81.tdf           ; yes             ; Auto-Generated Megafunction  ; F:/altera/Cache/db/altsyncram_4e81.tdf                               ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary               ;
++---------------------------------------------+-------------+
+; Resource                                    ; Usage       ;
++---------------------------------------------+-------------+
+; Estimated Total logic elements              ; 930         ;
+;                                             ;             ;
+; Total combinational functions               ; 780         ;
+; Logic element usage by number of LUT inputs ;             ;
+;     -- 4 input functions                    ; 434         ;
+;     -- 3 input functions                    ; 307         ;
+;     -- <=2 input functions                  ; 39          ;
+;                                             ;             ;
+; Logic elements by mode                      ;             ;
+;     -- normal mode                          ; 780         ;
+;     -- arithmetic mode                      ; 0           ;
+;                                             ;             ;
+; Total registers                             ; 155         ;
+;     -- Dedicated logic registers            ; 155         ;
+;     -- I/O registers                        ; 0           ;
+;                                             ;             ;
+; I/O pins                                    ; 182         ;
+; Total memory bits                           ; 38656       ;
+; Embedded Multiplier 9-bit elements          ; 0           ;
+; Maximum fan-out node                        ; clock~input ;
+; Maximum fan-out                             ; 304         ;
+; Total fan-out                               ; 4970        ;
+; Average fan-out                             ; 3.43        ;
++---------------------------------------------+-------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                       ;
++----------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node             ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                   ; Library Name ;
++----------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------+--------------+
+; |cache                                 ; 780 (778)         ; 155 (153)    ; 38656       ; 0            ; 0       ; 0         ; 182  ; 0            ; |cache                                                                ;              ;
+;    |altsyncram:ram_block[0][150]__1|   ; 0 (0)             ; 0 (0)        ; 38656       ; 0            ; 0       ; 0         ; 0    ; 0            ; |cache|altsyncram:ram_block[0][150]__1                                ;              ;
+;       |altsyncram_4e81:auto_generated| ; 0 (0)             ; 0 (0)        ; 38656       ; 0            ; 0       ; 0         ; 0    ; 0            ; |cache|altsyncram:ram_block[0][150]__1|altsyncram_4e81:auto_generated ;              ;
+;    |counter:word_counter|              ; 2 (2)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cache|counter:word_counter                                           ;              ;
++----------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                          ;
++---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+------+
+; Name                                                                      ; Type ; Mode        ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
++---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+------+
+; altsyncram:ram_block[0][150]__1|altsyncram_4e81:auto_generated|ALTSYNCRAM ; AUTO ; Single Port ; 256          ; 151          ; --           ; --           ; 38656 ; None ;
++---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+------+
+
+
++---------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                     ;
++------------------------------------------------------+-------------------------+------------------------+
+; Latch Name                                           ; Latch Enable Signal     ; Free of Timing Hazards ;
++------------------------------------------------------+-------------------------+------------------------+
+; readdata_reg[0]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[1]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[2]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[3]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[4]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[5]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[6]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[7]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[8]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[9]                                      ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[10]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[11]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[12]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[13]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[14]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[15]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[16]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[17]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[18]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[19]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[20]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[21]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[22]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[23]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[24]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[25]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[26]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[27]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[28]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[29]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[30]                                     ; state.read_cache_161112 ; yes                    ;
+; readdata_reg[31]                                     ; state.read_cache_161112 ; yes                    ;
+; m_adr[0]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[1]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[2]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[3]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[4]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[5]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[6]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[7]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[8]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[9]$latch                                       ; Selector151             ; yes                    ;
+; m_adr[10]$latch                                      ; Selector151             ; yes                    ;
+; m_adr[11]$latch                                      ; Selector151             ; yes                    ;
+; m_adr[12]$latch                                      ; Selector151             ; yes                    ;
+; m_adr[13]$latch                                      ; Selector151             ; yes                    ;
+; m_adr[14]$latch                                      ; Selector151             ; yes                    ;
+; m_read$latch                                         ; state.read_mem_161141   ; yes                    ;
+; m_write$latch                                        ; state.write_mem_161083  ; yes                    ;
+; m_writedata[0]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[1]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[2]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[3]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[4]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[5]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[6]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[7]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[8]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[9]$latch                                 ; Selector151             ; yes                    ;
+; m_writedata[10]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[11]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[12]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[13]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[14]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[15]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[16]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[17]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[18]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[19]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[20]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[21]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[22]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[23]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[24]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[25]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[26]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[27]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[28]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[29]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[30]$latch                                ; Selector151             ; yes                    ;
+; m_writedata[31]$latch                                ; Selector151             ; yes                    ;
+; state.read_cache_161112                              ; Selector159             ; yes                    ;
+; read_adr_reg[0]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[0]                                     ; write_adr_reg[14]       ; yes                    ;
+; state.write_mem_161083                               ; Selector159             ; yes                    ;
+; state.read_mem_161141                                ; Selector159             ; yes                    ;
+; read_adr_reg[1]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[1]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[2]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[2]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[3]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[3]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[4]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[4]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[5]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[5]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[6]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[6]                                     ; write_adr_reg[14]       ; yes                    ;
+; read_adr_reg[7]                                      ; state.read_mem_161141   ; yes                    ;
+; write_adr_reg[7]                                     ; write_adr_reg[14]       ; yes                    ;
+; Number of user-specified and inferred latches = 248  ;                         ;                        ;
++------------------------------------------------------+-------------------------+------------------------+
+Table restricted to first 100 entries. Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 155   ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 2     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |cache|Mux179              ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |cache|Selector139         ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |cache|state.hit           ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |cache|Selector22          ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |cache|Selector34          ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |cache|Selector92          ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |cache|Selector126         ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; No         ; |cache|m_writedata[0]      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++---------------------------------------------------------------------------------------+
+; Source assignments for altsyncram:ram_block[0][150]__1|altsyncram_4e81:auto_generated ;
++---------------------------------+--------------------+------+-------------------------+
+; Assignment                      ; Value              ; From ; To                      ;
++---------------------------------+--------------------+------+-------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                       ;
++---------------------------------+--------------------+------+-------------------------+
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |cache ;
++----------------+------------+-----------------------------------------+
+; Parameter Name ; Value      ; Type                                    ;
++----------------+------------+-----------------------------------------+
+; cache_delay    ; 1000000 fs ; Physical                                ;
+; clock_period   ; 1000000 fs ; Physical                                ;
++----------------+------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: altsyncram:ram_block[0][150]__1 ;
++------------------------------------+----------------------+------------------+
+; Parameter Name                     ; Value                ; Type             ;
++------------------------------------+----------------------+------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped          ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY       ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY     ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE     ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE   ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped          ;
+; OPERATION_MODE                     ; SINGLE_PORT          ; Untyped          ;
+; WIDTH_A                            ; 151                  ; Untyped          ;
+; WIDTHAD_A                          ; 8                    ; Untyped          ;
+; NUMWORDS_A                         ; 256                  ; Untyped          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped          ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped          ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped          ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped          ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped          ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped          ;
+; WIDTH_B                            ; 1                    ; Untyped          ;
+; WIDTHAD_B                          ; 1                    ; Untyped          ;
+; NUMWORDS_B                         ; 1                    ; Untyped          ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped          ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped          ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped          ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped          ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped          ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped          ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped          ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped          ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped          ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped          ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped          ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped          ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped          ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped          ;
+; BYTE_SIZE                          ; 8                    ; Untyped          ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped          ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA             ; Untyped          ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped          ;
+; INIT_FILE                          ; UNUSED               ; Untyped          ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped          ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped          ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped          ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped          ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped          ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped          ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped          ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped          ;
+; ENABLE_ECC                         ; FALSE                ; Untyped          ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped          ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped          ;
+; DEVICE_FAMILY                      ; Cyclone III          ; Untyped          ;
+; CBXI_PARAMETER                     ; altsyncram_4e81      ; Untyped          ;
++------------------------------------+----------------------+------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                            ;
++-------------------------------------------+---------------------------------+
+; Name                                      ; Value                           ;
++-------------------------------------------+---------------------------------+
+; Number of entity instances                ; 1                               ;
+; Entity Instance                           ; altsyncram:ram_block[0][150]__1 ;
+;     -- OPERATION_MODE                     ; SINGLE_PORT                     ;
+;     -- WIDTH_A                            ; 151                             ;
+;     -- NUMWORDS_A                         ; 256                             ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                    ;
+;     -- WIDTH_B                            ; 1                               ;
+;     -- NUMWORDS_B                         ; 1                               ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                          ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                    ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                            ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                       ;
++-------------------------------------------+---------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.0 Build 156 04/24/2013 SJ Full Version
+    Info: Processing started: Mon Jan 26 12:55:08 2015
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off cache -c cache
+Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
+Info (12021): Found 2 design units, including 1 entities, in source file 2bits_counter.vhd
+    Info (12022): Found design unit 1: counter-behaviour
+    Info (12023): Found entity 1: counter
+Info (12021): Found 2 design units, including 1 entities, in source file cache_tb.vhd
+    Info (12022): Found design unit 1: cache_tb-behaviour
+    Info (12023): Found entity 1: cache_tb
+Info (12021): Found 2 design units, including 1 entities, in source file mux4_1_tb.vhd
+    Info (12022): Found design unit 1: testbench-behavior
+    Info (12023): Found entity 1: testbench
+Info (12021): Found 2 design units, including 1 entities, in source file mux4_1.vhd
+    Info (12022): Found design unit 1: mux4_1-behaviour
+    Info (12023): Found entity 1: mux4_1
+Info (12021): Found 2 design units, including 1 entities, in source file memory_tb.vhd
+    Info (12022): Found design unit 1: memory_tb-behaviour
+    Info (12023): Found entity 1: memory_tb
+Info (12021): Found 2 design units, including 1 entities, in source file memory.vhd
+    Info (12022): Found design unit 1: memory-rtl
+    Info (12023): Found entity 1: memory
+Info (12021): Found 2 design units, including 1 entities, in source file cache.vhd
+    Info (12022): Found design unit 1: cache-behaviour
+    Info (12023): Found entity 1: cache
+Info (12127): Elaborating entity "cache" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at cache.vhd(67): used implicit default value for signal "reset" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10350): VHDL warning at standard.vhd(71): ignored VHDL standard library NOW function, which is not supported for synthesis
+Warning (10492): VHDL Process Statement warning at cache.vhd(137): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(139): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(139): signal "s_write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(140): signal "bypass" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(141): signal "s_write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(143): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(146): signal "cache_hit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(146): signal "valid_bit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(155): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(157): signal "s_write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(161): signal "dirty_bit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(161): signal "valid_bit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(168): signal "s_adr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(171): signal "s_adr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(171): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(172): signal "read_adr_reg" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(173): signal "m_readdata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(173): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(174): signal "m_waitrequest" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(177): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(186): signal "words" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(186): signal "word_offset" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(190): signal "bypass" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(191): signal "s_adr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(192): signal "s_writedata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(193): signal "m_waitrequest" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(198): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(198): signal "s_write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(200): signal "line_tag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(200): signal "index" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(200): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(201): signal "write_adr_reg" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(202): signal "words" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(202): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(203): signal "m_waitrequest" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(206): signal "count" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(210): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(212): signal "s_write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(213): signal "words" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(214): signal "s_writedata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(214): signal "word_offset" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(221): signal "write_done" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at cache.vhd(222): signal "s_read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "state", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "m_read", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "m_adr", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "counter_reset", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "read_adr_reg", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "words_reg", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "dirty_bit_reg", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "readdata_reg", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "m_write", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "m_writedata", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at cache.vhd(132): inferring latch(es) for signal or variable "write_adr_reg", which holds its previous value in one or more paths through the process
+Warning (10492): VHDL Process Statement warning at cache.vhd(240): signal "write_done" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10785): VHDL warning at cache.vhd(241): synthesis ignores all but the first waveform
+Warning (10631): VHDL Process Statement warning at cache.vhd(238): inferring latch(es) for signal or variable "write_waitreq_reg", which holds its previous value in one or more paths through the process
+Warning (10492): VHDL Process Statement warning at cache.vhd(247): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10785): VHDL warning at cache.vhd(248): synthesis ignores all but the first waveform
+Warning (10631): VHDL Process Statement warning at cache.vhd(245): inferring latch(es) for signal or variable "read_waitreq_reg", which holds its previous value in one or more paths through the process
+Info (10041): Inferred latch for "read_waitreq_reg" at cache.vhd(245)
+Info (10041): Inferred latch for "write_waitreq_reg" at cache.vhd(238)
+Info (10041): Inferred latch for "write_adr_reg[0]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[1]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[2]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[3]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[4]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[5]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[6]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[7]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[8]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[9]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[10]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[11]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[12]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[13]" at cache.vhd(132)
+Info (10041): Inferred latch for "write_adr_reg[14]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[0]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[1]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[2]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[3]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[4]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[5]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[6]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[7]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[8]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[9]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[10]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[11]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[12]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[13]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[14]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[15]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[16]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[17]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[18]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[19]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[20]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[21]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[22]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[23]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[24]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[25]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[26]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[27]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[28]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[29]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[30]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_writedata[31]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_write" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[0]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[1]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[2]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[3]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[4]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[5]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[6]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[7]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[8]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[9]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[10]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[11]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[12]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[13]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[14]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[15]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[16]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[17]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[18]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[19]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[20]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[21]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[22]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[23]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[24]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[25]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[26]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[27]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[28]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[29]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[30]" at cache.vhd(132)
+Info (10041): Inferred latch for "readdata_reg[31]" at cache.vhd(132)
+Info (10041): Inferred latch for "dirty_bit_reg" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][0]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][1]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][2]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][3]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][4]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][5]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][6]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][7]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][8]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][9]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][10]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][11]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][12]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][13]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][14]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][15]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][16]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][17]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][18]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][19]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][20]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][21]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][22]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][23]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][24]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][25]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][26]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][27]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][28]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][29]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][30]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[0][31]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][0]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][1]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][2]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][3]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][4]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][5]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][6]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][7]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][8]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][9]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][10]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][11]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][12]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][13]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][14]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][15]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][16]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][17]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][18]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][19]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][20]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][21]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][22]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][23]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][24]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][25]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][26]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][27]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][28]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][29]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][30]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[1][31]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][0]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][1]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][2]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][3]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][4]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][5]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][6]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][7]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][8]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][9]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][10]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][11]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][12]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][13]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][14]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][15]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][16]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][17]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][18]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][19]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][20]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][21]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][22]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][23]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][24]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][25]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][26]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][27]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][28]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][29]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][30]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[2][31]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][0]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][1]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][2]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][3]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][4]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][5]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][6]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][7]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][8]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][9]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][10]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][11]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][12]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][13]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][14]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][15]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][16]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][17]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][18]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][19]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][20]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][21]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][22]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][23]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][24]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][25]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][26]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][27]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][28]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][29]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][30]" at cache.vhd(132)
+Info (10041): Inferred latch for "words_reg[3][31]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[0]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[1]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[2]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[3]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[4]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[5]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[6]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[7]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[8]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[9]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[10]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[11]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[12]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[13]" at cache.vhd(132)
+Info (10041): Inferred latch for "read_adr_reg[14]" at cache.vhd(132)
+Info (10041): Inferred latch for "counter_reset" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[0]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[1]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[2]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[3]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[4]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[5]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[6]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[7]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[8]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[9]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[10]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[11]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[12]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[13]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_adr[14]" at cache.vhd(132)
+Info (10041): Inferred latch for "m_read" at cache.vhd(132)
+Info (10041): Inferred latch for "state.invalid" at cache.vhd(132)
+Info (10041): Inferred latch for "state.write_cache" at cache.vhd(132)
+Info (10041): Inferred latch for "state.write_mem" at cache.vhd(132)
+Info (10041): Inferred latch for "state.read_cache" at cache.vhd(132)
+Info (10041): Inferred latch for "state.read_mem" at cache.vhd(132)
+Info (10041): Inferred latch for "state.hit" at cache.vhd(132)
+Info (10041): Inferred latch for "state.miss" at cache.vhd(132)
+Info (10041): Inferred latch for "state.idle" at cache.vhd(132)
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "|altsyncram:ram_block[0][150]__1" 
+        Info (286033): Parameter OPERATION_MODE set to SINGLE_PORT
+        Info (286033): Parameter WIDTH_A set to 151
+        Info (286033): Parameter WIDTHAD_A set to 8
+        Info (286033): Parameter NUMWORDS_A set to 256
+        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+Info (12128): Elaborating entity "counter" for hierarchy "counter:word_counter"
+Info (12128): Elaborating entity "altsyncram" for hierarchy "altsyncram:ram_block[0][150]__1"
+Info (12130): Elaborated megafunction instantiation "altsyncram:ram_block[0][150]__1"
+Info (12133): Instantiated megafunction "altsyncram:ram_block[0][150]__1" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "SINGLE_PORT"
+    Info (12134): Parameter "WIDTH_A" = "151"
+    Info (12134): Parameter "WIDTHAD_A" = "8"
+    Info (12134): Parameter "NUMWORDS_A" = "256"
+    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_4e81.tdf
+    Info (12023): Found entity 1: altsyncram_4e81
+Info (12128): Elaborating entity "altsyncram_4e81" for hierarchy "altsyncram:ram_block[0][150]__1|altsyncram_4e81:auto_generated"
+Warning (13012): Latch m_adr[0]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[1]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[2]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[3]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[4]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[5]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[6]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[7]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[8]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[9]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[10]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[11]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[12]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[13]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_adr[14]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch m_writedata[0]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[1]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[2]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[3]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[4]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[5]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[6]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[7]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[8]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[9]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[10]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[11]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[12]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[13]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[14]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[15]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[16]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[17]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[18]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[19]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[20]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[21]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[22]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[23]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[24]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[25]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[26]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[27]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[28]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[29]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[30]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch m_writedata[31]$latch has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch state.read_cache_161112 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_read
+Warning (13012): Latch state.write_mem_161083 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch state.read_mem_161141 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch state.write_cache_161054 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch state.hit_161170 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch state.miss_161199 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_adr[31]
+Warning (13012): Latch state.idle_161228 has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal s_read
+Warning (13012): Latch words_reg[2][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[1][31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[2][31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[0][31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch words_reg[3][31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13012): Latch dirty_bit_reg has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal state.write_mem_161083
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "s_waitrequest" is stuck at GND
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1264 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 100 input pins
+    Info (21059): Implemented 82 output pins
+    Info (21061): Implemented 931 logic cells
+    Info (21064): Implemented 151 RAM segments
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 430 warnings
+    Info: Peak virtual memory: 719 megabytes
+    Info: Processing ended: Mon Jan 26 12:55:30 2015
+    Info: Elapsed time: 00:00:22
+    Info: Total CPU time (on all processors): 00:00:10
+
+

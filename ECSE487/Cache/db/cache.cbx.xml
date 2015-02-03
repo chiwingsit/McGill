@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="cache">
+		<CBX_INST_ENTRY INSTANCE_NAME="|cache|altsyncram:ram_block[0][150]__1" CBX_FILE_NAME="altsyncram_4e81.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

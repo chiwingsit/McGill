@@ -1,0 +1,245 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'state.write_mem_161083'
+Slack : -6.823
+TNS   : -200.966
+
+Type  : Slow 1200mV 85C Model Setup 's_adr[31]'
+Slack : -4.472
+TNS   : -106.625
+
+Type  : Slow 1200mV 85C Model Setup 'clock'
+Slack : -4.306
+TNS   : -539.585
+
+Type  : Slow 1200mV 85C Model Setup 'state.read_mem_161141'
+Slack : -3.103
+TNS   : -119.383
+
+Type  : Slow 1200mV 85C Model Setup 'state.read_cache_161112'
+Slack : -2.934
+TNS   : -57.986
+
+Type  : Slow 1200mV 85C Model Setup 'm_waitrequest'
+Slack : 0.205
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 's_adr[31]'
+Slack : -4.147
+TNS   : -597.507
+
+Type  : Slow 1200mV 85C Model Hold 'state.write_mem_161083'
+Slack : -2.784
+TNS   : -338.139
+
+Type  : Slow 1200mV 85C Model Hold 'state.read_mem_161141'
+Slack : -1.611
+TNS   : -155.459
+
+Type  : Slow 1200mV 85C Model Hold 'state.read_cache_161112'
+Slack : 0.320
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clock'
+Slack : 0.359
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'm_waitrequest'
+Slack : 0.381
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'm_waitrequest'
+Slack : -0.039
+TNS   : -0.078
+
+Type  : Slow 1200mV 85C Model Removal 'm_waitrequest'
+Slack : -1.380
+TNS   : -2.760
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -214.698
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'm_waitrequest'
+Slack : -3.000
+TNS   : -5.152
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 's_adr[31]'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'state.write_mem_161083'
+Slack : 0.283
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'state.read_mem_161141'
+Slack : 0.340
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'state.read_cache_161112'
+Slack : 0.396
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'state.write_mem_161083'
+Slack : -6.096
+TNS   : -181.026
+
+Type  : Slow 1200mV 0C Model Setup 's_adr[31]'
+Slack : -3.850
+TNS   : -90.937
+
+Type  : Slow 1200mV 0C Model Setup 'clock'
+Slack : -3.790
+TNS   : -471.352
+
+Type  : Slow 1200mV 0C Model Setup 'state.read_mem_161141'
+Slack : -2.736
+TNS   : -112.119
+
+Type  : Slow 1200mV 0C Model Setup 'state.read_cache_161112'
+Slack : -2.699
+TNS   : -52.982
+
+Type  : Slow 1200mV 0C Model Setup 'm_waitrequest'
+Slack : 0.288
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 's_adr[31]'
+Slack : -3.770
+TNS   : -537.529
+
+Type  : Slow 1200mV 0C Model Hold 'state.write_mem_161083'
+Slack : -2.461
+TNS   : -289.722
+
+Type  : Slow 1200mV 0C Model Hold 'state.read_mem_161141'
+Slack : -1.417
+TNS   : -131.793
+
+Type  : Slow 1200mV 0C Model Hold 'clock'
+Slack : 0.312
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'm_waitrequest'
+Slack : 0.333
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'state.read_cache_161112'
+Slack : 0.432
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'm_waitrequest'
+Slack : -0.035
+TNS   : -0.070
+
+Type  : Slow 1200mV 0C Model Removal 'm_waitrequest'
+Slack : -1.300
+TNS   : -2.600
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -214.698
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'm_waitrequest'
+Slack : -3.000
+TNS   : -5.006
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 's_adr[31]'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'state.write_mem_161083'
+Slack : 0.405
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'state.read_mem_161141'
+Slack : 0.422
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'state.read_cache_161112'
+Slack : 0.440
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'state.write_mem_161083'
+Slack : -4.185
+TNS   : -106.325
+
+Type  : Fast 1200mV 0C Model Setup 's_adr[31]'
+Slack : -2.329
+TNS   : -42.525
+
+Type  : Fast 1200mV 0C Model Setup 'clock'
+Slack : -2.144
+TNS   : -208.318
+
+Type  : Fast 1200mV 0C Model Setup 'state.read_mem_161141'
+Slack : -1.666
+TNS   : -27.832
+
+Type  : Fast 1200mV 0C Model Setup 'state.read_cache_161112'
+Slack : -1.459
+TNS   : -23.195
+
+Type  : Fast 1200mV 0C Model Setup 'm_waitrequest'
+Slack : 0.559
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 's_adr[31]'
+Slack : -2.720
+TNS   : -362.518
+
+Type  : Fast 1200mV 0C Model Hold 'state.write_mem_161083'
+Slack : -1.682
+TNS   : -198.542
+
+Type  : Fast 1200mV 0C Model Hold 'state.read_mem_161141'
+Slack : -1.027
+TNS   : -103.047
+
+Type  : Fast 1200mV 0C Model Hold 'clock'
+Slack : 0.187
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'm_waitrequest'
+Slack : 0.199
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'state.read_cache_161112'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'm_waitrequest'
+Slack : 0.595
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'm_waitrequest'
+Slack : -1.149
+TNS   : -2.298
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -195.313
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 's_adr[31]'
+Slack : -3.000
+TNS   : -10.922
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'm_waitrequest'
+Slack : -3.000
+TNS   : -5.818
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'state.write_mem_161083'
+Slack : 0.204
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'state.read_mem_161141'
+Slack : 0.288
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'state.read_cache_161112'
+Slack : 0.354
+TNS   : 0.000
+
+------------------------------------------------------------

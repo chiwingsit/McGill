@@ -1,0 +1,66 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY cache IS
+	PORT (
+		clock: IN STD_LOGIC;
+		writedata: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		address: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		memwrite: IN STD_LOGIC;
+		memread: IN STD_LOGIC;
+		readdata: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+		--waitrequest: OUT STD_LOGIC
+	);
+END cache;
+
+ARCHITECTURE behaviour OF cache IS
+	CONSTANT index_amount : INTEGER := 256;
+	CONSTANT dirty_bit_width : INTEGER := 1;
+	CONSTANT valid_bit_width : INTEGER := 1;
+	CONSTANT word_width : INTEGER := 32;
+	CONSTANT index_width : INTEGER := 8;
+	CONSTANT tag_width : INTEGER := 21;
+
+	TYPE MEM IS ARRAY(index_amount-1 downto 0) OF STD_LOGIC_VECTOR(dirty_bit_width+valid_bit_width+tag_width+(4*word_width)-1 DOWNTO 0);
+	SIGNAL ram_block: MEM;
+	SIGNAL line_register: STD_LOGIC_VECTOR(dirty_bit_width+valid_bit_width+tag_width+(4*word_width)-1 DOWNTO 0);
+	SIGNAL read_address_reg: STD_LOGIC_VECTOR(31 downto 0);
+	
+	SIGNAL dirty_bit, valid_bit: STD_LOGIC;
+	SIGNAL line_tag: STD_LOGIC_VECTOR(tag_width-1 downto 0);
+	SIGNAL word00, word01, word10, word11: STD_LOGIC_VECTOR(word_width-1 downto 0);
+	
+	SIGNAL word_offset: STD_LOGIC_VECTOR(1 downto 0);
+	SIGNAL index: STD_LOGIC_VECTOR(index_width-1 downto 0);
+	SIGNAL address_tag: STD_LOGIC_VECTOR(tag_width-1 downto 0);
+	SIGNAL bypass: STD_LOGIC;
+	
+	--SIGNAL write_waitreq_reg: STD_LOGIC := '1';
+	--SIGNAL read_waitreq_reg: STD_LOGIC := '1';
+BEGIN
+	--This is the main section of the SRAM model
+	mem_process: PROCESS (clock)
+	BEGIN
+		--This is a cheap trick to initialize the SRAM in simulation
+		IF(now < 1 ps)THEN
+			For i in 0 to index_amount-1 LOOP
+				ram_block(i) <= std_logic_vector(to_unsigned(i,32));
+			END LOOP;
+		END IF;
+		
+		--This is the actual synthesizable SRAM block
+		IF (clock'event AND clock = '1') THEN
+			word_offset <= address(1 downto 0);
+			index <= address(9 downto 2);
+			address_tag <= address(30 downto 10);
+			bypass <= address(31);
+			IF (memwrite = '1') THEN
+				line_register <= 
+				ram_block(to_integer(unsigned(index))) <= writedata;
+			END IF;
+			read_address_reg <= address;
+		END IF;
+	END PROCESS;
+	readdata <= ram_block(index);
+END behaviour;
