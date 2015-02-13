@@ -87,7 +87,7 @@ END COMPONENT;
 	SIGNAL e_writedata_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL e_address_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL e_write_in: STD_LOGIC;
-	SIGNAL e_waitrequest_in: STD_LOGIC;
+	SIGNAL e_waitrequest_in: STD_LOGIC := '0';
  
 	SIGNAL e_header_out: STD_LOGIC_VECTOR (3 DOWNTO 0);
 	SIGNAL e_writedata_out: STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -99,7 +99,7 @@ END COMPONENT;
 	SIGNAL n_writedata_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL n_address_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL n_write_in: STD_LOGIC;
-	SIGNAL n_waitrequest_in: STD_LOGIC;
+	SIGNAL n_waitrequest_in: STD_LOGIC := '0';
  
 	SIGNAL n_header_out: STD_LOGIC_VECTOR (3 DOWNTO 0);
 	SIGNAL n_writedata_out: STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -111,7 +111,7 @@ END COMPONENT;
 	SIGNAL w_writedata_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL w_address_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL w_write_in: STD_LOGIC;
-	SIGNAL w_waitrequest_in: STD_LOGIC;
+	SIGNAL w_waitrequest_in: STD_LOGIC := '0';
  
 	SIGNAL w_header_out: STD_LOGIC_VECTOR (3 DOWNTO 0);
 	SIGNAL w_writedata_out: STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -123,7 +123,7 @@ END COMPONENT;
 	SIGNAL s_writedata_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL s_address_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL s_write_in: STD_LOGIC;
-	SIGNAL s_waitrequest_in: STD_LOGIC;
+	SIGNAL s_waitrequest_in: STD_LOGIC := '0';
  
 	SIGNAL s_header_out: STD_LOGIC_VECTOR (3 DOWNTO 0);
 	SIGNAL s_writedata_out: STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -135,7 +135,7 @@ END COMPONENT;
 	SIGNAL l_writedata_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL l_address_in: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	SIGNAL l_write_in: STD_LOGIC;
-	SIGNAL l_waitrequest_in: STD_LOGIC;
+	SIGNAL l_waitrequest_in: STD_LOGIC := '0';
 	
 	SIGNAL l_header_out: STD_LOGIC_VECTOR (3 DOWNTO 0);
 	SIGNAL l_writedata_out: STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -224,62 +224,100 @@ BEGIN
     BEGIN
 		wait for clk_period;
 		reset <= '0';
-		l_address_in<=x"00000001";
+		
+		-- Send to node (0,0)
 		l_header_in<="0000";
-		l_write_in<='1', '0' after clk_period;
-		l_writedata_in<=x"0000000F";
---		
---		wait for clk_period;
---		--read miss read from main memory than read cache
---    	s_adr <= bypass & address_tag & index & word_offset;
---		s_read <= '1';
---		wait until rising_edge(s_waitrequest);
---			assert s_readdata = s_adr report "read unsuccessful" severity error;
---    	s_read <= '0';
---		
---    	wait for clk_period;
---		
---		--write miss read from main memory than write cache
---    	s_writedata <= X"12341234";
---    	s_write <= '1';
---    	wait until rising_edge(s_waitrequest);
---			s_write <= '0';
---			s_read <= '1';
---		
---		--cache read hit
---		wait until rising_edge(s_waitrequest);
---			assert s_readdata = x"12341234" report "write unsuccessful" severity error;
---    	s_read <= '0';
---    	wait for clk_period;
---		
---		--cache write hit set dirty bit to 1
---		word_offset <= "01";
---		s_adr <= bypass & address_tag & index & word_offset;
---		s_writedata <= X"12340000";
---		s_write <= '1';
---		wait until rising_edge(s_waitrequest);
---		assert s_readdata = x"12340000" report "write unsuccessful" severity error;
---		s_write <= '0';
---		
---		address_tag <= "000000000000000000100";
---		s_adr <= bypass & address_tag & index & word_offset;
---		
---		--write cache miss with dirty bit
---		wait for clk_period;
---		s_writedata <= X"12345000";
---		s_write <= '1';
---		wait until rising_edge(s_waitrequest);
---		assert s_readdata = x"12345000" report "write unsuccessful" severity error;
---		s_write <= '0';
---		
---		--read cache miss with dirty bit
---		address_tag <= "000000000000000000110";
---		s_adr <= bypass & address_tag & index & word_offset;
---		wait for clk_period;
---		s_read <= '1';
---		wait until rising_edge(s_waitrequest);
---		assert s_readdata = s_adr report "read unsuccessful" severity error;
---		s_write <= '0';
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000001";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(n_write_out);
+			assert n_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (0,1)
+		l_header_in<="0001";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000002";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(n_write_out);
+			assert n_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (0,2)
+		l_header_in<="0010";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000003";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(e_write_out);
+			assert e_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+
+		-- Send to node (1,0)
+		l_header_in<="0100";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000004";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(w_write_out);
+			assert w_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (1,1)
+		e_header_in<="0101";
+		e_address_in<=x"00000001";
+		e_writedata_in<=x"00000005";
+		e_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(l_write_out);
+			assert l_writedata_out = e_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (1,2)
+		l_header_in<="0110";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000006";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(e_write_out);
+			assert e_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (2,0)
+		l_header_in<="1000";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000007";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(w_write_out);
+			assert w_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (2,1)
+		l_header_in<="1001";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000008";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(s_write_out);
+			assert s_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		-- Send to node (2,2)
+		l_header_in<="1010";
+		l_address_in<=x"00000001";
+		l_writedata_in<=x"00000009";
+		l_write_in<='1', '0' after 3*clk_period/2;
+		wait until rising_edge(s_write_out);
+			assert s_writedata_out = l_writedata_in report "send data unsuccessful" severity error;
+		wait for clk_period;
+		
+		
+		--Block north port
+		n_waitrequest_in <= '1';
+		
+		-- Send data to the blocked north port to fill up the queue
+		l_header_in<="0001";
+		l_address_in<=x"00000001";
+		l_write_in<='1';
+		l_writedata_in<=x"00000002";
+		wait until rising_edge(l_waitrequest_out);
+		n_waitrequest_in <= '0';
+
 	END PROCESS;
 
  
